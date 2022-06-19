@@ -20,7 +20,7 @@ public class Video {
     private String playurl;
     //封面地址
     private String coverurl;
-    //评论创建日期
+    //视频创建日期
     private Date createdate;
     //视频状态
     private boolean status;
