@@ -1,4 +1,4 @@
-package com.tiktok.app;
+package com.tiktok.app.mapper;
 
 import com.tiktok.app.bean.User;
 import com.tiktok.app.mapper.UserMapper;
@@ -16,5 +16,16 @@ public class UserMapperTest {
     @Test
     public void testRegisterUser(){
         userMapper.registerUser(new User(123123,"ha","wda","12312",new Date()));
+    }
+
+    @Test
+    public void testSelectUserById(){
+        User user = userMapper.findUserById(2222);
+        System.out.println(user==null?"不存在":"存在");
+    }
+    @Test
+    public void testSelectUserByUserName(){
+        User user = userMapper.findUserByUserName("admixxn");
+        System.out.println(user==null?"不存在":"存在");
     }
 }

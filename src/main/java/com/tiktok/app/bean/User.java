@@ -7,18 +7,17 @@ import java.util.Date;
 
 @Data
 public class User {
-    private Integer id;
     private Integer userid;
     private String username;
     private String password;
     private String salt;
-    private Date date;
+    private Date createdate;
 
-    public User(Integer userid, String username, String password, String salt, Date date) {
+    public User(Integer userid, String username, String password, String salt, Date createdate) {
         this.userid = userid;
         this.username = username;
         this.password = password;
         this.salt = salt;
-        this.date = date;
+        this.createdate = createdate;
     }
 }
