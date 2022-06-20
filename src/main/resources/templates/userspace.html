@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+    <title>用户信息</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div style="background: lightcoral; position: absolute;margin: 4%;left: 35%;top: 5% ;text-align: center">
+        <h1>个人空间</h1><br>
+        <h4 th:text="${status_msg}">查询信息</h4>
+        <div th:object="${userinfo}">
+            用户id：<span th:text="*{id}">id</span><br>
+            用户名：<span th:text="*{username}">username</span><br>
+            用户关注数：<span th:text="*{follow_count}">follow_count</span><br>
+            用户粉丝数：<span th:text="*{follower_count}">follower_count</span><br>
+        </div>
+        <h4 th:text="${upload_msg}" style="background: lightblue">上传信息</h4>
+        <div style="background: lemonchiffon">
+            <form th:action="@{/douyin/publish/action/}" th:method="post" enctype="multipart/form-data">
+                标题: <input type="text" name="title"/><br>
+                文件: <input type="file" name="data"/><br>
+                <input type="submit" value="提交"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
