@@ -1,4 +1,27 @@
 <!doctype html>
-<html lang="ch" xmlns:th="http://www.thymeleaf.org">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html lang="ch" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <style>
+        #platform{
+            text-align: center;
+            height: 40%;
+            width: 40%;
+            background: lightblue;
+            position: absolute;
+            left: 30%;
+            bottom: 33%;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body style="background: #060716">
+    <div id="platform">
+        <div style="position: relative;top: 20%;text-after-overflow: 500px">
+            <div style="color: cadetblue;top: 16%" >主页</div>
+            <a th:href="@{login}" style="color: cornsilk;position: relative">点击登录</a><br>
+            <a th:href="@{register}" style="color: cornsilk;position: relative">点击注册</a>
+        </div>
+    </div>
+</body>
 </html>

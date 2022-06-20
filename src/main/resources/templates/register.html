@@ -1,15 +1,19 @@
 <!doctype html>
 <html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
     <meta charset="UTF-8">
     <title>注册</title>
 </head>
 <body>
-    <h1 th:text="${status_msg}">msg</h1>
-    <form action="/douyin/user/register/" method="post">
-        用户名: <input type="text" name="username"/><br>
-        密码: <input type="text" name="password"/><br>
-        <input type="submit" value="提交"/>
-    </form>
-    </body>
+    <div style="position: absolute; background: lemonchiffon;top: 35%;left: 40%;padding: 5%">
+        <h1 style="text-align: center">注册</h1>
+        <p th:text="${status_msg}"></p>
+        <form th:action="@{/douyin/user/register/}" th:method="post">
+            用户名: <input type="text" name="username"/><br>
+            密码:   <input type="text" name="password"/><br>
+            <input style="position: relative;left: 50%" type="submit" value="提交"/>
+        </form>
+    </div>
+</body>
 </html>

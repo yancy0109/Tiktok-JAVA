@@ -4,7 +4,6 @@ package com.tiktok.app.controller;
 import com.tiktok.app.response.LoginAndResgiterResponese;
 import com.tiktok.app.response.UserInfo;
 import com.tiktok.app.serivce.UserService;
-import com.tiktok.app.until.JwtUntil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +24,6 @@ public class UserController {
     @RequestMapping(value = "/douyin/user/register/",method = RequestMethod.POST)
     public String userRegister(@RequestParam String username, @RequestParam String password, HttpSession sesson,Model model){
         LoginAndResgiterResponese larResponse = userService.registerUser(username, password);
-
         //返回注册页
         if (larResponse == null){
             model.addAttribute("status_code",-1);
@@ -63,17 +61,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/douyin/user/",method = RequestMethod.GET)
-    String userInfo(Model model,HttpSession session){
+    String userInfo(@RequestParam(value = "upload_msg",required = false) String upload_msg,Model model,HttpSession session){
         Integer userId = (Integer) session.getAttribute("user_id");
-        String token = (String) session.getAttribute("token");
-        Integer temp = JwtUntil.parseToken(token);
-        //返回登录页
-        if (temp.equals(userId)){
-            model.addAttribute("status_code",-1);
-            model.addAttribute("status_msg","token无效");
-            model.addAttribute("user",null);
-            return "login";
-        }
         UserInfo userInfo = userService.showUserInfo(userId);
         //返回登录页
         if (userInfo == null){
@@ -86,10 +75,7 @@ public class UserController {
         model.addAttribute("status_code",0);
         model.addAttribute("status_msg","查询成功");
         model.addAttribute("userinfo",userInfo);
-        return "userinfo";
-    }
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    String index(){
-        return "index";
+        model.addAttribute("upload_msg",upload_msg);
+        return "userspace";
     }
 }
