@@ -3,7 +3,7 @@ package com.tiktok.app.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
  * 返回用户信息实体类
