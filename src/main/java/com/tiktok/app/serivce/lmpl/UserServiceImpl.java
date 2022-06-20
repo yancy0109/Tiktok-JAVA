@@ -40,7 +40,9 @@ public class UserServiceImpl implements UserService {
         User user = new User(userId,userName,passWord,userId+passWord,new Date());
         //mapper注册
         int result = userMapper.registerUser(user);
-        if (result == 0) return null;
+        if (result == 0) {
+            return null;
+        }
         return larResponse;
     }
 
@@ -61,7 +63,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo showUserInfo(Integer userId) {
         User user = userMapper.findUserById(userId);
-        if (user == null) return null;
+        if (user == null) {
+            return null;
+        }
         int follow = followMapper.countFollowCountById(userId);
         int follower = followMapper.countFollowerCountById(userId);
         return new UserInfo(userId,user.getUsername(),follow,follower,false);

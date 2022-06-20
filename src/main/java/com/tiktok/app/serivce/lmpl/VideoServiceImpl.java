@@ -25,7 +25,9 @@ public class VideoServiceImpl implements VideoService {
         String videoPath = "/video/"+videoName;
         String coverPath = "/video/"+videoName+".jpg";
         int result = videoMapper.uploadVideo(new Video(authorId, title, videoPath, coverPath, new Date(), true));
-        if (result == 0)    return false;
+        if (result == 0) {
+            return false;
+        }
         return true;
     }
 }
