@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/douyin/user/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/douyin/user/register/",method = RequestMethod.POST)
     public ResultResponse userRegister(@RequestParam String username,@RequestParam String password){
         LoginAndResgiterResponese larResponse = userService.registerUser(username, password);
         if (larResponse == null){
@@ -26,12 +26,17 @@ public class UserController {
         return new ResultResponse(0,"注册成功",larResponse);
     }
 
-    @RequestMapping(value = "/douyin/user/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/douyin/user/login/",method = RequestMethod.POST)
     public ResultResponse userLogin(@RequestParam String username,@RequestParam String password){
         LoginAndResgiterResponese loginAndResgiterResponese = userService.loginUser(username, password);
         if (loginAndResgiterResponese==null){
             return new ResultResponse(-1,"登陆失败","用户名或密码错误");
         }
         return new ResultResponse(0,"登陆成功",loginAndResgiterResponese);
+    }
+
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    String hello(){
+        return "hello";
     }
 }
