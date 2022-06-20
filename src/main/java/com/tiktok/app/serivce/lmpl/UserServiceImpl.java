@@ -1,8 +1,10 @@
 package com.tiktok.app.serivce.lmpl;
 
+import com.tiktok.app.mapper.FollowMapper;
 import com.tiktok.app.response.LoginAndResgiterResponese;
 import com.tiktok.app.bean.User;
 import com.tiktok.app.mapper.UserMapper;
+import com.tiktok.app.response.UserInfo;
 import com.tiktok.app.serivce.UserService;
 import com.tiktok.app.until.IdUtil;
 import com.tiktok.app.until.JwtUntil;
@@ -16,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    FollowMapper followMapper;
     @Override
     public LoginAndResgiterResponese registerUser(String userName, String passWord) {
         //生成用户id
@@ -35,7 +39,8 @@ public class UserServiceImpl implements UserService {
         //数据库user对象
         User user = new User(userId,userName,passWord,userId+passWord,new Date());
         //mapper注册
-        userMapper.registerUser(user);
+        int result = userMapper.registerUser(user);
+        if (result == 0) return null;
         return larResponse;
     }
 
@@ -51,5 +56,14 @@ public class UserServiceImpl implements UserService {
         //生成token
         String token = JwtUntil.generateToken(userTemp.getUserid());
         return new LoginAndResgiterResponese(userTemp.getUserid(),token);
+    }
+
+    @Override
+    public UserInfo showUserInfo(Integer userId) {
+        User user = userMapper.findUserById(userId);
+        if (user == null) return null;
+        int follow = followMapper.countFollowCountById(userId);
+        int follower = followMapper.countFollowerCountById(userId);
+        return new UserInfo(userId,user.getUsername(),follow,follower,false);
     }
 }

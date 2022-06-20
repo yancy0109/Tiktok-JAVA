@@ -1,6 +1,7 @@
 package com.tiktok.app.mapper;
 
 import com.tiktok.app.bean.User;
+import com.tiktok.app.response.UserInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -11,7 +12,7 @@ public interface UserMapper {
 
     //注册
     @Insert("insert into douyin.user(user_id, user_name, password, salt, create_date) values (#{userid},#{username},#{password},#{salt},#{createdate});")
-    void registerUser(User user);
+    int registerUser(User user);
     //查询
 
     @Select("select user_id, user_name, password, salt, create_date from douyin.user where user_id = #{userid}")
@@ -19,4 +20,5 @@ public interface UserMapper {
 
     @Select("select user_id, user_name, password, salt, create_date from douyin.user where user_name = #{username}")
     User findUserByUserName(String username);
+
 }
