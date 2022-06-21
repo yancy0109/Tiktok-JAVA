@@ -2,12 +2,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <html lang="ch" xmlns:th="http://www.thymeleaf.org" >
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            border: 0px;
+        }
         #platform{
             text-align: center;
             height: 40%;
             width: 40%;
-            background: lightblue;
+            background-image: url("/static/image/main.png");
+            background-color: white;
             position: absolute;
             left: 30%;
             bottom: 33%;
@@ -15,12 +24,15 @@
         }
     </style>
 </head>
-<body style="background: #060716">
-    <div id="platform">
-        <div style="position: relative;top: 20%;text-after-overflow: 500px">
-            <div style="color: cadetblue;top: 16%" >主页</div>
-            <a th:href="@{login}" style="color: cornsilk;position: relative">点击登录</a><br>
-            <a th:href="@{register}" style="color: cornsilk;position: relative">点击注册</a>
+<body style="background:#060716">
+    <div id="platform" style="border-radius: 15px;border:2px solid">
+        <div style="position: relative;top: 20%;text-after-overflow: 500px;">
+            <div style="color: black;top: 16%;font-family: PingFang" >欢迎来到SimpleTiktok</div>
+            <br>
+            <h4 th:text="${status_msg}" style="text-align: center">Msg...</h4>
+            <a th:href="@{login}" style="color: black;position: relative">点击登录</a><br>
+            <br>
+            <a th:href="@{register}" style="color: black;position: relative">点击注册</a>
         </div>
     </div>
 </body>

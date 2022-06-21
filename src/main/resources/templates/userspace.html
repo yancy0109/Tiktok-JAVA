@@ -3,30 +3,52 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
     <title>用户信息</title>
-    <style>
-        *{
-            padding: 0px;
-            margin: 0px;
-        }
-    </style>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div style="background: lightcoral; position: absolute;margin: 4%;left: 35%;top: 5% ;text-align: center">
-        <h1>个人空间</h1><br>
-        <h4 th:text="${status_msg}">查询信息</h4>
-        <div th:object="${userinfo}">
-            用户id：<span th:text="*{id}">id</span><br>
-            用户名：<span th:text="*{username}">username</span><br>
-            用户关注数：<span th:text="*{follow_count}">follow_count</span><br>
-            用户粉丝数：<span th:text="*{follower_count}">follower_count</span><br>
-        </div>
-        <h4 th:text="${upload_msg}" style="background: lightblue">上传信息</h4>
-        <div style="background: lemonchiffon">
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a th:href="@{/douyin/user/}">用户主页</a></li>
+            <li role="presentation"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
+        </ul>
+        <div style="text-align: center">
+            <h1 >个人空间</h1><br>
+            <h4 th:text="${status_msg}" style="text-align: center">Msg..</h4>
+            <table class="table" th:object="${userinfo}">
+                <tr>
+                    <th>用户id</th><th th:text="*{id}"></th>
+                </tr>
+                <tr>
+                    <th>用户名</th><th th:text="*{username}"></th>
+                </tr>
+                <tr>
+                    <th>用户关注数</th><th th:text="*{follow_count}"></th>
+                </tr>
+                <tr>
+                    <th>用户粉丝数</th><th th:text="*{follower_count}"></th>
+                </tr>
+            </table>
+            <h2>上传视频</h2>
+            <h4 th:text="${upload_msg}" >上传状态Msg...</h4>
             <form th:action="@{/douyin/publish/action/}" th:method="post" enctype="multipart/form-data">
-                标题: <input type="text" name="title"/><br>
-                文件: <input type="file" name="data"/><br>
-                <input type="submit" value="提交"/>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">title</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Title" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">Video input</label>
+                    <input type="file" id="exampleInputFile" name="data">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
+            <div>
+                <h3>查看发布列表</h3>
+                <h4 th:text="${space_msg}">查看状态Msg...</h4>
+                <a th:href="@{/douyin/publish/list/}">点击go</a>
+            </div>
         </div>
     </div>
 </body>
