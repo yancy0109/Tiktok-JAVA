@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (userId == null){
             log.info("token无效");
             request.setAttribute("status_msg","请先登录");
-            request.getRequestDispatcher("login").forward(request,response);
+            request.getRequestDispatcher("/login").forward(request,response);
             return false;
         }
         log.info("token有效  userId为"+userId);

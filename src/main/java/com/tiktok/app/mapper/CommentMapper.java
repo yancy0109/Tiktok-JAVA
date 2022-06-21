@@ -16,4 +16,8 @@ public interface CommentMapper {
 
     @Update("update comment set status= #{action_type}")
     int updateComment(boolean action_type);
+
+
+    @Select("select count(*) from comment where video_id = #{videoId} and status = 1")
+    Integer countComment(Integer videoId);
 }
