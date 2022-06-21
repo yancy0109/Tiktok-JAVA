@@ -7,6 +7,9 @@ spring:
   thymeleaf:
 #    开发关闭缓存 以观察实时效果
     cache: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

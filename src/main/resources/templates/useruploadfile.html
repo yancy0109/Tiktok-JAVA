@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>用户上传内容</title>
+    <!--    JQuery-->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>上传视频列表</h1>
+    <div class="container" style="text-align: center;color: cornsilk">
+        <ul class="nav nav-pills">
+            <li role="presentation"><a th:href="@{/douyin/user/}">用户主页</a></li>
+            <li role="presentation" class="active"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
+        </ul>
+        <h1>上传视频列表</h1>
+        <table class="table table-bordered">
+            <tr>
+                <th>视频id</th>
+                <th>视频</th>
+                <th>封面</th>
+                <th>视频点赞数量</th>
+                <th>视频评论总数</th>
+                <th>视频标题</th>
+            </tr>
+            <tr th:each="videoInfo:${videoInfos}">
+                <th th:text="${videoInfo.id}">视频id</th>
+<!--                <ul th:object="${videoInfo.user}">-->
+<!--                    <th>用户id</th><th th:text="*{id}"></th>-->
+<!--                    <th>用户名</th><th th:text="*{username}"></th>-->
+<!--                    <th>用户关注数</th><th th:text="*{follow_count}"></th>-->
+<!--                    <th>用户粉丝数</th><th th:text="*{follower_count}"></th>-->
+<!--                </ul>-->
+                <th>
+                    视频播放
+                    <video style="height: 600px; width: 400px" controls>
+                        <source th:src="${videoInfo.playurl}" type="video/mp4">
+                    </video>
+                </th>
+                <th>
+                    视频封面<img  class="img-rounded" alt="Responsive image" style="height: 600px; width: 400px" th:src="${videoInfo.coverurl}">
+                </th>
+                <th th:text="${videoInfo.favorite_count}">视频点赞数量</th>
+                <th th:text="${videoInfo.comment_count}">视频评论总数</th>
+                <th th:text="${videoInfo.title}">视频标题</th>
+            </tr>
+        </table>
+    </div>
+
+
 </body>
+<script>
+
+</script>
 </html>
