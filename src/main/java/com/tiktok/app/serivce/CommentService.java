@@ -13,6 +13,6 @@ public interface CommentService {
     /**
      * 用户对评论进行删除操作
      */
-    boolean deleteComment(Integer authorId,Integer videoId,boolean actionType,String context);
+    boolean deleteComment(Integer authorId,Integer videoId,Integer commentId,boolean actionType);
 
 }

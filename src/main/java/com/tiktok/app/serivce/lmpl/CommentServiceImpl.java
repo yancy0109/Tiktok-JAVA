@@ -25,7 +25,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(Integer authorId, Integer videoId, boolean actionType, String context) {
-        return false;
+    public boolean deleteComment(Integer authorId, Integer videoId, Integer commentId,boolean actionType) {
+        int author= commentMapper.InquaryAuthor(commentId);
+
+        int result = commentMapper.updateComment(actionType);
+        if (author!=authorId||result == 0) {
+            return false;
+        }
+        return true;
     }
+
+
 }
