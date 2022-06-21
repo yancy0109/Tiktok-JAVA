@@ -17,4 +17,10 @@ public interface VideoMapper {
 
     @Select("select video.id from video where video.author_id = #{authorid}")
     ArrayList<Integer> selectListByAuthorId(Integer authorid);
+
+    @Select("select video.id from video where UNIX_TIMESTAMP(create_date) < UNIX_TIMESTAMP(now()) and status = 1 order by create_date desc limit 10;")
+    ArrayList<Integer> videoFeed();
+
+    @Select("select video.id from video where video.author_id = #{authorid}")
+    Integer getVideoId(Integer authorid);
 }

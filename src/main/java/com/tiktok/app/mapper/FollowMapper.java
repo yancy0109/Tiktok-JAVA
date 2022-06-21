@@ -13,6 +13,6 @@ public interface FollowMapper {
     @Select("select count(*) from follow where be_follow = #{userid}")
     int countFollowerCountById(Integer userId);
     //查询follow 是否关注 beFollow
-    @Select("select is_del from follow where follow = #{follow} and be_follow = #{beFollow}")
+    @Select("select count(*) from follow where follow = #{follow} and be_follow = #{beFollow} and is_del = 0;")
     int selectFollowStatus(Integer follow,Integer beFollow);
 }

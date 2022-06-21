@@ -33,4 +33,12 @@ public class VideoMapperTest {
         }
 
     }
+    @Test
+    void testVideoFeed(){
+        ArrayList<Integer> integers = videoMapper.videoFeed();
+        for (Integer integer : integers) {
+            System.out.println(integer);
+        }
+
+    }
 }

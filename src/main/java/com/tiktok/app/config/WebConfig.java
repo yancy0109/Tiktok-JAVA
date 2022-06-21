@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")     //所有请求都被拦截 包括静态资源
                 .excludePathPatterns("/","/register","/index","/login","/css/**","/js/**","/cover/**",
-                        "/video/**","/douyin/user/login/","/douyin/user/register/","/favicon.ico","/image/**");     //放行的请求;
+                        "/video/**","/douyin/user/login/","/douyin/user/register/","/favicon.ico","/image/**","/douyin/feed");     //放行的请求;
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
