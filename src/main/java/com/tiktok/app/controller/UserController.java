@@ -61,7 +61,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/douyin/user/",method = RequestMethod.GET)
-    String userInfo(@RequestParam(value = "upload_msg",required = false) String upload_msg,Model model,HttpSession session){
+    String userInfo(@RequestParam(value = "upload_msg",required = false) String upload_msg,
+                    @RequestParam(value = "space_msg",required = false) String space_msg,
+                    Model model,HttpSession session){
         Integer userId = (Integer) session.getAttribute("user_id");
         UserInfo userInfo = userService.showUserInfo(userId);
         //返回登录页
@@ -76,6 +78,7 @@ public class UserController {
         model.addAttribute("status_msg","查询成功");
         model.addAttribute("userinfo",userInfo);
         model.addAttribute("upload_msg",upload_msg);
+        model.addAttribute("space_msg",space_msg);
         return "userspace";
     }
 }

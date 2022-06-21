@@ -1,7 +1,6 @@
 package com.tiktok.app.mapper;
 
 import com.tiktok.app.bean.User;
-import com.tiktok.app.response.UserInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
