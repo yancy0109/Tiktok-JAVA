@@ -18,7 +18,7 @@ public class VideoFavorite {
     //点赞用户id
     private Integer userid;
     //点赞状态
-    private boolean status;
+    private Integer status;
     //创建日期
     private Date createdate;
 }
