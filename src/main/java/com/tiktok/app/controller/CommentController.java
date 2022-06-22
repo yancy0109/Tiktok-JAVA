@@ -66,7 +66,6 @@ public class CommentController {
             model.addAttribute("commentlist",commentList);
             model.addAttribute("user_id",userId);
         }
-        System.out.println(commentList);
         return "commentlist";
     }
 }
