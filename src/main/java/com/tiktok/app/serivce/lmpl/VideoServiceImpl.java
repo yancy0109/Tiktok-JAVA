@@ -54,8 +54,10 @@ public class VideoServiceImpl implements VideoService {
             Video video = videoMapper.selectVideoById(videoId);
             int favoriteCount = videoFavoriteMapper.selectVideoFavorite(videoId);
             Integer commentCount = commentMapper.countComment(videoId);
+            int j = videoFavoriteMapper.selectFavoriteStatus(videoId,userId);
+            boolean isFavorite = (j==1);
             videoInfos.add(new VideoInfo(videoId,userInfo,video.getPlayurl(),video.getCoverurl(),
-                    favoriteCount,commentCount,video.getTitle()));
+                    favoriteCount,commentCount,isFavorite,video.getTitle()));
         }
         return videoInfos;
     }

@@ -24,6 +24,8 @@ public class VideoInfo {
     private Integer favorite_count;
     //评论总数
     private Integer comment_count;
+    //是否点赞
+    private boolean is_favorite;
     //视频标题
     private String title;
 }

@@ -26,6 +26,7 @@ public class FavoriteListController {
             return "redirect:/login";
         List<VideoInfo> favoriteList = favoriteListService.getFavoriteList(userId);
         model.addAttribute("favoriteList",favoriteList);
+        model.addAttribute("user_id",userId);
         return "userfavorite";
     }
 }

@@ -36,17 +36,18 @@ public class VideoFeedServiceImpl implements VideoFeedService {
             User authord = userMapper.findUserById(video.getAuthorid());
             int follow = followMapper.countFollowCountById(authord.getUserid());
             int follower = followMapper.countFollowerCountById(authord.getUserid());
-            boolean isFollow;
             if (hasUserId){
                 int i = followMapper.selectFollowStatus(userId, authord.getUserid());
-                isFollow = (i==1);
+                int j = videoFavoriteMapper.selectFavoriteStatus(videoId,userId);
+                boolean isFollow = (i==1);
+                boolean isFavorite = (j==1);
                 videoInfos.add(new VideoInfo(videoId,new UserInfo(authord.getUserid(),authord.getUsername(),follow,follower,isFollow),
                         video.getPlayurl(),video.getCoverurl(),
-                        favoriteCount,commentCount,video.getTitle()));
+                        favoriteCount,commentCount,isFavorite,video.getTitle()));
             }else {
                 videoInfos.add(new VideoInfo(videoId,new UserInfo(authord.getUserid(),authord.getUsername(),follow,follower,false),
                         video.getPlayurl(),video.getCoverurl(),
-                        favoriteCount,commentCount,video.getTitle()));
+                        favoriteCount,commentCount,false,video.getTitle()));
             }
         }
         return videoInfos;

@@ -27,9 +27,9 @@ public class VideoFeedController {
         }else {
             videoInfos = videoFeedService.getVideoFeed(userId, true);
             model.addAttribute("hasUserId",true);
+            model.addAttribute("user_id",userId);
         }
         model.addAttribute("videoInfos",videoInfos);
-        System.out.println(videoInfos);
         return "videofeed";
     }
 }

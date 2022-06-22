@@ -28,6 +28,10 @@ public class VideoController {
         Integer authorId = (Integer) session.getAttribute("user_id");
         String filename = authorId+"_"+System.currentTimeMillis()+"_"+file.getOriginalFilename();
 //        System.out.println(filename);
+        if (file == null){
+            attributes.addAttribute("upload_msg","上传失败");
+            return "redirect:/douyin/user/";
+        }
         if (!videoService.saveVideoAndCover(file,filename,title,authorId)){
             attributes.addAttribute("upload_msg","上传失败");
             return "redirect:/douyin/user/";

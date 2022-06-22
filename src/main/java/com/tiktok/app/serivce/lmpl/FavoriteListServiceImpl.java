@@ -31,7 +31,7 @@ public class FavoriteListServiceImpl implements FavoriteListService {
     @Override
     public List<VideoInfo> getFavoriteList(Integer userId) {
         ArrayList<VideoInfo> videoInfos = new ArrayList<>();
-        ArrayList<Integer> integers = videoMapper.videoFeed();
+        ArrayList<Integer> integers = videoFavoriteMapper.selectVideoIdList(userId);
         for (Integer videoId : integers) {
             Video video = videoMapper.selectVideoById(videoId);
             int favoriteCount = videoFavoriteMapper.selectVideoFavorite(videoId);
@@ -42,7 +42,7 @@ public class FavoriteListServiceImpl implements FavoriteListService {
             boolean isFollow = ((followMapper.selectFollowStatus(userId, authord.getUserid()))==1);
             videoInfos.add(new VideoInfo(videoId,new UserInfo(authord.getUserid(),authord.getUsername(),follow,follower,isFollow),
                     video.getPlayurl(),video.getCoverurl(),
-                    favoriteCount,commentCount,video.getTitle()));
+                    favoriteCount,commentCount,true,video.getTitle()));
         }
         return videoInfos;
     }

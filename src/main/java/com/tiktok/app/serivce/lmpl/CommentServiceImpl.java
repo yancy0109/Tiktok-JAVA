@@ -66,17 +66,20 @@ public class CommentServiceImpl implements CommentService {
         int follow = followMapper.countFollowCountById(author.getUserid());
         int follower = followMapper.countFollowerCountById(author.getUserid());
         boolean isFollow = false;
+        boolean isFavorite = false;
         VideoInfo videoInfo;
         if (hasUserId){
             int i = followMapper.selectFollowStatus(userId, author.getUserid());
+            int j = videoFavoriteMapper.selectFavoriteStatus(videoId,userId);
+            isFavorite = (j==1);
             isFollow = (i==1);
              videoInfo = new VideoInfo(videoId, new UserInfo(author.getUserid(), author.getUsername(), follow, follower, isFollow),
                     video.getPlayurl(), video.getCoverurl(),
-                    favoriteCount, commentCount, video.getTitle());
+                    favoriteCount, commentCount,isFavorite,video.getTitle());
         }else {
             videoInfo = new VideoInfo(videoId,new UserInfo(author.getUserid(),author.getUsername(),follow,follower,false),
                     video.getPlayurl(),video.getCoverurl(),
-                    favoriteCount,commentCount,video.getTitle());
+                    favoriteCount,commentCount,isFavorite,video.getTitle());
         }
         commentList.setVideoInfo(videoInfo);
         commentList.setCommentInfo(new ArrayList<>());
@@ -89,9 +92,8 @@ public class CommentServiceImpl implements CommentService {
                 System.out.println("未查询到");
             }
             {
-                userInfo = new UserInfo(userId,user.getUsername(),follow,follower,isFollow);
+                userInfo = new UserInfo(comment.getAuthorid(),user.getUsername(),follow,follower,isFollow);
             }
-            System.out.println(userInfo);
             commentList.getCommentInfo().add(new CommentInfo(commentId,
                     userInfo,
                     comment.getContent(),comment.getCreatedate()));
