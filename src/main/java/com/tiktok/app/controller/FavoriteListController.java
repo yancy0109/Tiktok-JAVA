@@ -22,6 +22,8 @@ public class FavoriteListController {
     @RequestMapping(value = "/douyin/favorite/list/",method = RequestMethod.GET)
     public String getFavoriteList(HttpSession session, Model model){
         Integer userId = (Integer) session.getAttribute("user_id");
+        if (userId == null)
+            return "redirect:/login";
         List<VideoInfo> favoriteList = favoriteListService.getFavoriteList(userId);
         model.addAttribute("favoriteList",favoriteList);
         return "userfavorite";
