@@ -14,7 +14,13 @@
 <div class="container" style="text-align: center;">
     <ul th:if="${hasUserId}" class="nav nav-pills">
         <li role="presentation"><a th:href="@{/douyin/user/}">用户主页</a></li>
-        <li role="presentation" class="active"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
+        <li role="presentation"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
+        <li role="presentation" class="active" ><a th:href="@{/douyin/feed}">视频流</a></li>
+    </ul>
+    <ul th:unless="${hasUserId}" class="nav nav-pills">
+        <li role="presentation" class="active"><a th:href="@{/login}">登录</a></li>
+        <li role="presentation"><a th:href="@{/register}">注册</a></li>
+        <li role="presentation" class="active"><a th:href="@{/douyin/feed}">视频流</a></li>
     </ul>
     <h1>视频信息</h1>
     <table class="table table-bordered">
@@ -32,7 +38,7 @@
             <th>视频标题</th>
         </tr>
         <tr>
-            <th th:text="*{commentlist.videoInfo.id}">视频id</th>
+            <th th:text="${commentlist.videoInfo.id}">视频id</th>
             <th th:text="${commentlist.videoInfo.user.id}">用户id</th>
             <th th:text="${commentlist.videoInfo.user.username}">用户名</th>
             <th th:text="${commentlist.videoInfo.user.follow_count}">用户关注数</th>
@@ -72,14 +78,36 @@
             <th th:text="${comment.user.username}">用户名</th>
             <th th:text="${comment.user.follow_count}">用户关注数</th>
             <th th:text="${comment.user.follower_count}">用户粉丝数</th>
-            <th th:if="${hasUserId}" th:text="*{is_follow}">关注状态</th>
+            <th th:if="${hasUserId}" th:text="${comment.user.is_follow}">关注状态</th>
             <th th:unless="${hasUserId}">未登录</th>
             <th th:text="${comment.content}">评论内容</th>
             <th th:text="${comment.createdate}">评论时间</th>
-            <th th:if="${comment.user.id} eq ${user_id}">删除</th>
-            <th th:unless="${comment.user.id} eq ${user_id}">非用户发布的评论</th>
+            <th th:if="${comment.user.id} eq ${user_id} and ${hasUserId}">
+                <a th:href="@{'/douyin/comment/action/?action_type=2&&video_id='+${commentlist.videoInfo.id}+'&&comment_id='+${comment.id}}">删除</a>
+            </th>
+            <th th:unless="${comment.user.id} eq ${user_id} or ${hasUserId}">非用户发布的评论</th>
         </tr>
     </table>
+    <div th:if="${hasUserId}">
+        <h1 style="text-align: center;">发布评论</h1>
+        <h4 th:text="${param.publish_comment_msg}">发布情况Msg...</h4>
+        <form class="form-horizontal" th:action="@{/douyin/comment/action/}" th:method="GET">
+            <input name="action_type" value="1" style="display: none">
+            <input name="video_id" th:value="${commentlist.videoInfo.id}" style="display: none">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">评论</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" placeholder="评论内容" name="comment_text">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">发布</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </div>
 
 

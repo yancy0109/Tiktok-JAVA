@@ -23,7 +23,7 @@ public interface CommentMapper {
     @Select("select count(*) from comment where video_id = #{videoId} and status = 1")
     Integer countComment(Integer videoId);
 
-    @Select("select comment.id from comment where video_id = #{videoId}")
+    @Select("select comment.id from comment where video_id = #{videoId} and status = 1")
     ArrayList<Integer> getCommentList(Integer videoId);
 
 

@@ -15,6 +15,7 @@
         <ul class="nav nav-pills">
             <li role="presentation"><a th:href="@{/douyin/user/}">用户主页</a></li>
             <li role="presentation" class="active"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
+            <li role="presentation" ><a th:href="@{/douyin/feed}">视频流</a></li>
         </ul>
         <h1>上传视频列表</h1>
         <table class="table table-bordered">
@@ -44,7 +45,11 @@
                     视频封面<img  class="img-rounded" alt="Responsive image" style="height: 600px; width: 400px" th:src="${videoInfo.coverurl}">
                 </th>
                 <th th:text="${videoInfo.favorite_count}">视频点赞数量</th>
-                <th th:text="${videoInfo.comment_count}">视频评论总数</th>
+                <th>
+                    <a th:text="${videoInfo.comment_count}" th:href="@{'/douyin/comment/list/?video_id='+${videoInfo.id}}" style="width: 100%;height: 100%">
+                        视频评论总数
+                    </a>
+                </th>
                 <th th:text="${videoInfo.title}">视频标题</th>
             </tr>
         </table>

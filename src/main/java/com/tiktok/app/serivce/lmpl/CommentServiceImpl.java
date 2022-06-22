@@ -10,7 +10,6 @@ import com.tiktok.app.response.CommentList;
 import com.tiktok.app.response.UserInfo;
 import com.tiktok.app.response.VideoInfo;
 import com.tiktok.app.serivce.CommentService;
-import com.tiktok.app.serivce.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,6 @@ public class CommentServiceImpl implements CommentService {
     VideoFavoriteMapper videoFavoriteMapper;
     @Autowired
     FollowMapper followMapper;
-    @Autowired
-    UserService userService;
 
     @Override
     public boolean saveComment(Integer authorId, Integer videoId, Integer actionType, String context) {
@@ -68,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
         }
         int follow = followMapper.countFollowCountById(author.getUserid());
         int follower = followMapper.countFollowerCountById(author.getUserid());
-        boolean isFollow;
+        boolean isFollow = false;
         VideoInfo videoInfo;
         if (hasUserId){
             int i = followMapper.selectFollowStatus(userId, author.getUserid());
@@ -86,8 +83,17 @@ public class CommentServiceImpl implements CommentService {
         ArrayList<Integer> commentIdList = commentMapper.getCommentList(videoId);
         for (Integer commentId : commentIdList) {
             Comment comment = commentMapper.getCommentById(commentId);
+            User user = userMapper.findUserById(comment.getAuthorid());
+            UserInfo userInfo;
+            if (user == null) {
+                System.out.println("未查询到");
+            }
+            {
+                userInfo = new UserInfo(userId,user.getUsername(),follow,follower,isFollow);
+            }
+            System.out.println(userInfo);
             commentList.getCommentInfo().add(new CommentInfo(commentId,
-                    userService.showUserInfo(comment.getAuthorid()),
+                    userInfo,
                     comment.getContent(),comment.getCreatedate()));
         }
         return commentList;
