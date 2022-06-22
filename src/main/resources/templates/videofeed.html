@@ -16,7 +16,9 @@
         <li role="presentation"><a th:href="@{/douyin/user/}">用户主页</a></li>
         <li role="presentation"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
         <li role="presentation"><a th:href="@{/douyin/favorite/list/}">点赞列表</a></li>
-        <li role="presentation" class="avtive"><a th:href="@{/douyin/feed}">视频流</a></li>
+        <li role="presentation"><a th:href="@{/douyin/relation/follow/list/}">关注列表</a></li>
+        <li role="presentation"><a th:href="@{/douyin/relation/follower/list/}">粉丝列表</a></li>
+        <li role="presentation"class="active"><a th:href="@{/douyin/feed}">视频流</a></li>
     </ul>
     <ul th:unless="${hasUserId}" class="nav nav-pills">
         <li role="presentation"><a th:href="@{/login}">登录</a></li>
