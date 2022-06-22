@@ -23,28 +23,36 @@ public class CommentController {
     @Autowired
     VideoMapper videoMapper;
 
-    @RequestMapping(value = "/douyin/comment/action/",method = RequestMethod.POST)
-    String saveComment(@RequestParam("video_id") Integer videoId,@RequestParam("action_type") Integer status,@RequestParam("comment_text") String context, @RequestParam("comment_id") Integer commentId, HttpSession session, RedirectAttributes attributes) {
+    @RequestMapping(value = "/douyin/comment/action/",method = RequestMethod.GET)
+    String saveComment(@RequestParam("video_id") Integer videoId,@RequestParam("action_type") Integer status,
+                       @RequestParam(value = "comment_text",required = false) String context,
+                       @RequestParam(value = "comment_id",required = false) Integer commentId,
+                       HttpSession session, RedirectAttributes attributes) {
         int authorId = (Integer) session.getAttribute("user_id");
         if (status==1) {
             if (!commentService.saveComment(authorId, videoId, status, context)) {
-                attributes.addAttribute("upload_msg", "评论失败");
-                return "redirect:/douyin/user/";
+                attributes.addAttribute("publish_comment_msg", "评论失败");
+                attributes.addAttribute("video_id",videoId);
+                return "redirect:/douyin/comment/list/";
             }
-            attributes.addAttribute("upload_msg", "评论成功");
-            return "redirect:/douyin/user/";
+            attributes.addAttribute("publish_comment_msg", "评论成功");
+            attributes.addAttribute("video_id",videoId);
+            return "redirect:/douyin/comment/list/";
         } else {
             if (!commentService.deleteComment(authorId,videoId,commentId,status)) {
-                attributes.addAttribute("upload_msg", "删除失败");
-                return "redirect:/douyin/user/";
+                attributes.addAttribute("delete_comment_msg", "删除失败");
+                attributes.addAttribute("video_id",videoId);
+                return "redirect:/douyin/comment/list/";
             }
-            attributes.addAttribute("upload_msg", "删除成功");
-            return "redirect:/douyin/user/";
+            attributes.addAttribute("delete_comment_msg", "删除成功");
+            attributes.addAttribute("video_id",videoId);
+            return "redirect:/douyin/comment/list/";
         }
     }
 
     @RequestMapping("/douyin/comment/list/")
-    String getCommentList(@RequestParam("video_id")Integer videoId,HttpSession session, Model model){
+    String getCommentList(@RequestParam("video_id")Integer videoId,
+                          HttpSession session, Model model){
         Integer userId = (Integer) session.getAttribute("user_id");
         CommentList commentList;
         if (userId == null){

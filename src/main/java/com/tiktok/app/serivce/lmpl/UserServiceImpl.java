@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
     public UserInfo showUserInfo(Integer userId) {
         User user = userMapper.findUserById(userId);
         if (user == null) {
+            System.out.println("未查询到");
             return null;
         }
         int follow = followMapper.countFollowCountById(userId);
