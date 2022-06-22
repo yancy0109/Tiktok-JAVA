@@ -8,11 +8,11 @@ public interface CommentService {
      * @param authorId
      * @return
      */
-    boolean saveComment(Integer authorId,Integer videoId,boolean actionType,String context);
+    boolean saveComment(Integer authorId,Integer videoId,Integer actionType,String context);
 
     /**
      * 用户对评论进行删除操作
      */
-    boolean deleteComment(Integer authorId,Integer videoId,Integer commentId,boolean actionType);
+    boolean deleteComment(Integer authorId,Integer videoId,Integer commentId,Integer actionType);
 
 }

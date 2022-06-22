@@ -1,7 +1,10 @@
 package com.tiktok.app.mapper;
 
+import com.tiktok.app.bean.VideoFavorite;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.ArrayList;
 
@@ -13,4 +16,10 @@ public interface VideoFavoriteMapper {
 
     @Select("select video_id from video_favorite where user_id = #{userId} and status = 1")
     ArrayList<Integer> selectVideoIdList(Integer userId);
+
+    @Insert("insert into video_favorite(video_id,user_id,status,create_date) values(#{videoid},#{userid},#{status},#{createdate},)")
+    int favouriteAdd(VideoFavorite videoFavorite);
+
+    @Update("update video_favourite set status= #{action_type} where video_id=videoId and user_id=userId")
+    int favouriteUnAdd(Integer videoId,Integer userId,Integer action_type);
 }

@@ -21,5 +21,5 @@ public class Comment {
     //评论创建日期
     private Date createdate;
     //评论状态
-    private boolean status;
+    private Integer status;
 }

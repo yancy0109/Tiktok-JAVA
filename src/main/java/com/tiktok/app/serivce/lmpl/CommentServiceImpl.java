@@ -16,7 +16,7 @@ public class CommentServiceImpl implements CommentService {
     CommentMapper commentMapper;
 
     @Override
-    public boolean saveComment(Integer authorId, Integer videoId, boolean actionType, String context) {
+    public boolean saveComment(Integer authorId, Integer videoId, Integer actionType, String context) {
         int result = commentMapper.insertComment(new Comment(videoId,authorId,context,new Date(),actionType));
         if (result == 0) {
             return false;
@@ -25,15 +25,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(Integer authorId, Integer videoId, Integer commentId,boolean actionType) {
+    public boolean deleteComment(Integer authorId, Integer videoId, Integer commentId,Integer actionType) {
         int author= commentMapper.InquaryAuthor(commentId);
 
-        int result = commentMapper.updateComment(actionType);
+        int result = commentMapper.updateComment(commentId,actionType);
         if (author!=authorId||result == 0) {
             return false;
         }
         return true;
     }
+
 
 
 }
