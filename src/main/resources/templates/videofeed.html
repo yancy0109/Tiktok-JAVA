@@ -19,7 +19,7 @@
         <li role="presentation" class="avtive"><a th:href="@{/douyin/feed}">视频流</a></li>
     </ul>
     <ul th:unless="${hasUserId}" class="nav nav-pills">
-        <li role="presentation" class="active"><a th:href="@{/login}">登录</a></li>
+        <li role="presentation"><a th:href="@{/login}">登录</a></li>
         <li role="presentation"><a th:href="@{/register}">注册</a></li>
         <li role="presentation" class="active"><a th:href="@{/douyin/feed}">视频流</a></li>
     </ul>
@@ -27,29 +27,27 @@
     <table class="table table-bordered">
         <tr>
             <th>视频id</th>
-            <th>
-                <th>作者id</th>
-                <th>作者名</th>
-                <th>作者关注数</th>
-                <th>作者粉丝数</th>
-                <th>关注状态</th>
-            </th>
+            <th>作者id</th>
+            <th>作者名</th>
+            <th>作者关注数</th>
+            <th>作者粉丝数</th>
+            <th>关注状态</th>
             <th>视频</th>
             <th>封面</th>
             <th>视频点赞数量</th>
             <th>视频评论总数</th>
+            <th>是否点赞</th>
             <th>视频标题</th>
         </tr>
         <tr th:each="videoInfo:${videoInfos}">
             <th th:text="${videoInfo.id}">视频id</th>
-            <th th:object="${videoInfo.user}">
-                <th th:text="${videoInfo.user.id}">用户id</th>
-                <th th:text="${videoInfo.user.username}">用户名</th>
-                <th th:text="${videoInfo.user.follow_count}">用户关注数</th>
-                <th th:text="${videoInfo.user.follower_count}">用户粉丝数</th>
-                <th th:if="${hasUserId}" th:text="${videoInfo.user.is_follow}">关注状态</th>
-                <th th:unless="${hasUserId}">未登录</th>
-            </th>
+            <th th:text="${videoInfo.user.id}">用户id</th>
+            <th th:text="${videoInfo.user.username}">用户名</th>
+            <th th:text="${videoInfo.user.follow_count}">用户关注数</th>
+            <th th:text="${videoInfo.user.follower_count}">用户粉丝数</th>
+            <th th:if="${videoInfo.user.id} != ${user_id} and ${hasUserId}" th:text="${videoInfo.user.is_follow}">关注状态</th>
+            <th th:if="${videoInfo.user.id} == ${user_id} and ${hasUserId}">无法关注自己</th>
+            <th th:unless="${hasUserId}">未登录</th>
             <th>
                 视频播放
                 <video style="height: 600px; width: 400px" controls>
@@ -65,6 +63,10 @@
                     视频评论总数
                 </a>
             </th>
+
+            <th th:if="${hasUserId}" th:text="${videoInfo.is_favorite}">点赞状态</th>
+            <th th:unless="${hasUserId}">未登录</th>
+
             <th th:text="${videoInfo.title}">视频标题</th>
         </tr>
     </table>

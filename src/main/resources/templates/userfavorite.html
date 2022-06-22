@@ -42,8 +42,8 @@
             <th th:text="${videoInfo.user.username}">用户名</th>
             <th th:text="${videoInfo.user.follow_count}">用户关注数</th>
             <th th:text="${videoInfo.user.follower_count}">用户粉丝数</th>
-            <th th:if="${hasUserId}" th:text="${videoInfo.user.is_follow}">关注状态</th>
-            <th th:unless="${hasUserId}">未登录</th>
+            <th th:if="${videoInfo.user.id} != ${user_id}" th:text="${videoInfo.user.is_follow}">关注状态</th>
+            <th th:unless="${videoInfo.user.id} != ${user_id}">无法关注自己</th>
             </th>
             <th>
                 视频播放
