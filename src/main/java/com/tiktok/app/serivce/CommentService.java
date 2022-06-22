@@ -1,6 +1,7 @@
 package com.tiktok.app.serivce;
 
-import org.springframework.web.multipart.MultipartFile;
+
+import com.tiktok.app.response.CommentList;
 
 public interface CommentService {
     /**
@@ -15,4 +16,10 @@ public interface CommentService {
      */
     boolean deleteComment(Integer authorId,Integer videoId,Integer commentId,Integer actionType);
 
+    /**
+     * 获取videoId的评论
+     * @param videoId
+     * @return
+     */
+    CommentList getCommentList(Integer videoId,Integer userId, boolean hasUserId);
 }

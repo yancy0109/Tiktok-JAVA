@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>评论列表</title>
+    <!--    JQuery-->
+    <script th:src="@{https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js}"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container" style="text-align: center;">
+    <ul th:if="${hasUserId}" class="nav nav-pills">
+        <li role="presentation"><a th:href="@{/douyin/user/}">用户主页</a></li>
+        <li role="presentation" class="active"><a th:href="@{/douyin/publish/list/}">上传列表</a></li>
+    </ul>
+    <h1>视频信息</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>视频id</th>
+            <th>作者id</th>
+            <th>作者名</th>
+            <th>作者关注数</th>
+            <th>作者粉丝数</th>
+            <th>关注状态</th>
+            <th>视频</th>
+            <th>封面</th>
+            <th>视频点赞数量</th>
+            <th>视频评论总数</th>
+            <th>视频标题</th>
+        </tr>
+        <tr>
+            <th th:text="*{commentlist.videoInfo.id}">视频id</th>
+            <th th:text="${commentlist.videoInfo.user.id}">用户id</th>
+            <th th:text="${commentlist.videoInfo.user.username}">用户名</th>
+            <th th:text="${commentlist.videoInfo.user.follow_count}">用户关注数</th>
+            <th th:text="${commentlist.videoInfo.user.follower_count}">用户粉丝数</th>
+            <th th:if="${hasUserId}" th:text="*{is_follow}">关注状态</th>
+            <th th:unless="${hasUserId}">未登录</th>
+            <th>
+                视频播放
+                <video style="height: 600px; width: 400px" controls>
+                    <source th:src="${commentlist.videoInfo.playurl}" type="video/mp4">
+                </video>
+            </th>
+            <th>
+                视频封面<img  class="img-rounded" alt="Responsive image" style="height: 600px; width: 400px" th:src="${commentlist.videoInfo.coverurl}">
+            </th>
+            <th th:text="${commentlist.videoInfo.favorite_count}">视频点赞数量</th>
+            <th th:text="${commentlist.videoInfo.comment_count}">视频评论总数</th>
+            <th th:text="${commentlist.videoInfo.title}">视频标题</th>
+        </tr>
+    </table>
+    <h1>当前视频的评论</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>评论id</th>
+            <th>作者id</th>
+            <th>作者名</th>
+            <th>作者关注数</th>
+            <th>作者粉丝数</th>
+            <th>关注状态</th>
+            <th>评论内容</th>
+            <th>评论时间</th>
+            <th>删除</th>
+        </tr>
+        <tr th:each="comment:${commentlist.commentInfo}">
+            <th th:text="${comment.id}">评论id</th>
+            <th th:text="${comment.user.id}">用户id</th>
+            <th th:text="${comment.user.username}">用户名</th>
+            <th th:text="${comment.user.follow_count}">用户关注数</th>
+            <th th:text="${comment.user.follower_count}">用户粉丝数</th>
+            <th th:if="${hasUserId}" th:text="*{is_follow}">关注状态</th>
+            <th th:unless="${hasUserId}">未登录</th>
+            <th th:text="${comment.content}">评论内容</th>
+            <th th:text="${comment.createdate}">评论时间</th>
+            <th th:if="${comment.user.id} eq ${user_id}">删除</th>
+            <th th:unless="${comment.user.id} eq ${user_id}">非用户发布的评论</th>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+<script>
+
+</script>
+</html>
