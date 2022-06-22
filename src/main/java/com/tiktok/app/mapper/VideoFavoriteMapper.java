@@ -17,6 +17,11 @@ public interface VideoFavoriteMapper {
     @Select("select video_id from video_favorite where user_id = #{userId} and status = 1")
     ArrayList<Integer> selectVideoIdList(Integer userId);
 
+    /**
+     *
+     * @param videoFavorite
+     * @return
+     */
     @Insert("insert into video_favorite(video_id,user_id,status,create_date) values(#{videoid},#{userid},#{status},#{createdate},)")
     int favouriteAdd(VideoFavorite videoFavorite);
 
