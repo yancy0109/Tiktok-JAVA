@@ -1,11 +1,16 @@
 package com.tiktok.app.mapper;
 
 
+import com.tiktok.app.bean.Follow;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("all")
 @Mapper
 public interface FollowMapper {
     //根据id查询关注数
@@ -25,4 +30,11 @@ public interface FollowMapper {
     //查询粉丝列表
     @Select("select follow from follow where be_follow = #{userId} and is_del = 0; ")
     List<Integer> getFollowerList(Integer userId);
+
+    //对作者关注
+    @Insert("insert into follow(be_follow, follow, is_del, update_time) VALUES (#{befollow},#{follow},#{isdel},#{updatetime})")
+    int addFollow(Follow follow);
+    //取消关注
+    @Update("update follow set is_del=2,update_time=#{updatetime} where be_follow=#{befollow} and follow=#{follow} ")
+    int unaddFollow(Integer befollow, Integer follow, Date updatetime);
 }

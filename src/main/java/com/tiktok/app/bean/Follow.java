@@ -18,7 +18,7 @@ public class Follow {
     //关注人id
     private Integer follow;
     //关注存在状态
-    private boolean isdel;
+    private Integer isdel;
     //更改状态日期  创建or取消
     private Date updatetime;
 }
