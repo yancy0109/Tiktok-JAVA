@@ -13,7 +13,7 @@ public interface FavoriteService {
     /**
      * 用户取消点赞操作
      */
-    boolean favoriteUnAdd(Integer videoId,Integer userId,Integer status);
+    boolean favoriteUpdateAdd(Integer videoId,Integer userId,Integer status);
 
 
 

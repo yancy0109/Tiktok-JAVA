@@ -14,8 +14,8 @@ public interface FollowService {
     boolean saveFollow(Follow follow);
 
     /**
-     * 用户取消关注操作
+     * 用户更新关注操作
      */
-    boolean deleteFollow(Integer befollow, Integer follow, Date date);
+    boolean updateFollow(Integer befollow, Integer follow, Date date,Integer status);
 
 }

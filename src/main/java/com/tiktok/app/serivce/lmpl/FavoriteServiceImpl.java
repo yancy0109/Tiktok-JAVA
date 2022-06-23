@@ -28,8 +28,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public boolean favoriteUnAdd(Integer videoId, Integer userId, Integer status) {
-        int result = videoFavoriteMapper.favouriteUnAdd(videoId,userId,status);
+    public boolean favoriteUpdateAdd(Integer videoId, Integer userId, Integer status) {
+        int result = videoFavoriteMapper.favouriteUpdateAdd(videoId,userId,status);
         if (result==0) {
             return false;
         }

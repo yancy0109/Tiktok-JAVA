@@ -33,8 +33,8 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public boolean deleteFollow(Integer befollow, Integer follow, Date date) {
-        int result = followMapper.unaddFollow(befollow, follow, date);
+    public boolean updateFollow(Integer befollow, Integer follow, Date date, Integer status) {
+        int result = followMapper.undateFollow(new Follow(befollow,follow,status,date));
         if (result == 0) {
             return false;
         }

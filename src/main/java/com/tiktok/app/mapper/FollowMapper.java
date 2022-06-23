@@ -31,10 +31,14 @@ public interface FollowMapper {
     @Select("select follow from follow where be_follow = #{userId} and is_del = 0; ")
     List<Integer> getFollowerList(Integer userId);
 
-    //对作者关注
+    //首次对作者关注
     @Insert("insert into follow(be_follow, follow, is_del, update_time) VALUES (#{befollow},#{follow},#{isdel},#{updatetime})")
     int addFollow(Follow follow);
-    //取消关注
-    @Update("update follow set is_del=2,update_time=#{updatetime} where be_follow=#{befollow} and follow=#{follow} ")
-    int unaddFollow(Integer befollow, Integer follow, Date updatetime);
+    //更新关注
+    @Update("update follow set is_del=#{status},update_time=#{updatetime} where be_follow=#{befollow} and follow=#{follow} ")
+    int undateFollow(Follow follow);
+
+    //查询之前是否有关注记录
+    @Select("select id from follow where be_follow=#{befollow} and follow=#{follower}")
+    int inquery(Integer befollow,Integer follower);
 }
