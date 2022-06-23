@@ -30,4 +30,5 @@ public interface VideoFavoriteMapper {
 
     @Update("update video_favorite set status= #{action_type} where video_id= #{videoId} and user_id = #{userId}")
     int favouriteUnAdd(Integer videoId,Integer userId,Integer action_type);
+
 }
