@@ -33,7 +33,7 @@ public class FavoriteController {
 //            attributes.addAttribute("upload_msg", "点赞成功");
 //            return "redirect:/douyin/favourite/list";
                 return "点赞成功";
-        } else {
+        } else if (status==2){
             if (!favoriteService.favoriteUnAdd(videoId,authorId,status)) {
 //                attributes.addAttribute("upload_msg", "取消点赞失败");
 //                return "redirect:/douyin/favourite/list";
@@ -42,6 +42,8 @@ public class FavoriteController {
 //            attributes.addAttribute("upload_msg", "取消点赞成功");
 //            return "redirect:/douyin/favourite/list";
             return "取消点赞成功";
+        }else {
+            return "操作失败";
         }
     }
 

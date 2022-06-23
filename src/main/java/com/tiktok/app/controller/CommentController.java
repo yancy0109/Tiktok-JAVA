@@ -38,7 +38,7 @@ public class CommentController {
             attributes.addAttribute("publish_comment_msg", "评论成功");
             attributes.addAttribute("video_id",videoId);
             return "redirect:/douyin/comment/list/";
-        } else {
+        } else if(status==2){
             if (!commentService.deleteComment(authorId,videoId,commentId,status)) {
                 attributes.addAttribute("delete_comment_msg", "删除失败");
                 attributes.addAttribute("video_id",videoId);
@@ -47,6 +47,9 @@ public class CommentController {
             attributes.addAttribute("delete_comment_msg", "删除成功");
             attributes.addAttribute("video_id",videoId);
             return "redirect:/douyin/comment/list/";
+        }else {
+            attributes.addAttribute("upload_msg", "操作失败");
+            return "redirect:/douyin/comment/list";
         }
     }
 

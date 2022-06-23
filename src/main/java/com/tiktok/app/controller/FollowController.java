@@ -39,7 +39,7 @@ public class FollowController {
 //            attributes.addAttribute("upload_msg", "关注成功");
 //            return "followList";
             return "关注失败";
-        } else {
+        } else if (status==2){
             if (!followService.deleteFollow(beFollower,follower,new Date())) {
 //                attributes.addAttribute("upload_msg", "取消关注失败");
 //                return "followList";
@@ -48,6 +48,8 @@ public class FollowController {
 //            attributes.addAttribute("upload_msg", "取消关注成功");
 //            return "followList";
             return "取消关注成功";
+        }else {
+            return "操作失败";
         }
     }
 
