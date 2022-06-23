@@ -26,12 +26,12 @@ public interface VideoFavoriteMapper {
      * @return
      */
     @Insert("insert into video_favorite(video_id,user_id,status,create_date) values(#{videoid},#{userid},#{status},#{createdate})")
-    int favouriteAdd(VideoFavorite videoFavorite);
+    Integer favouriteAdd(VideoFavorite videoFavorite);
 
     @Update("update video_favorite set status= #{action_type} where video_id= #{videoId} and user_id = #{userId}")
-    int favouriteUpdateAdd(Integer videoId,Integer userId,Integer action_type);
+    Integer favouriteUpdateAdd(Integer videoId,Integer userId,Integer action_type);
 
     @Select("select id from video_favorite where video_id=#{videoId} and user_id=#{userId}")
-    int inquery(Integer videoId,Integer userId);
+    Integer inquery(Integer videoId,Integer userId);
 
 }

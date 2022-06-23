@@ -40,5 +40,5 @@ public interface FollowMapper {
 
     //查询之前是否有关注记录
     @Select("select id from follow where be_follow=#{befollow} and follow=#{follower}")
-    int inquery(Integer befollow,Integer follower);
+    Integer inquery(Integer befollow,Integer follower);
 }

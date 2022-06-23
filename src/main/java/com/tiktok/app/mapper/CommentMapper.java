@@ -14,10 +14,10 @@ public interface CommentMapper {
     int insertComment(Comment comment);
   
     @Select("select author_id from comment where id = #{commentId}")
-    int InquaryAuthor(Integer commentId);
+    Integer InquaryAuthor(Integer commentId);
 
     @Update("update comment set status= #{action_type} where id = #{commentId}")
-    int updateComment(Integer commentId,Integer action_type);
+    Integer updateComment(Integer commentId,Integer action_type);
 
 
     @Select("select count(*) from comment where video_id = #{videoId} and status = 1")
