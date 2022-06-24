@@ -70,12 +70,13 @@ public class CommentServiceImpl implements CommentService {
         VideoInfo videoInfo;
         if (hasUserId){
             int i = followMapper.selectFollowStatus(userId, author.getUserid());
-            int j = videoFavoriteMapper.selectFavoriteStatus(videoId,userId);
-            isFavorite = (j==1);
             isFollow = (i==1);
+            int j = videoFavoriteMapper.selectFavoriteStatus(author.getUserid(),userId);
+            isFavorite = (j==1);
              videoInfo = new VideoInfo(videoId, new UserInfo(author.getUserid(), author.getUsername(), follow, follower, isFollow),
                     video.getPlayurl(), video.getCoverurl(),
                     favoriteCount, commentCount,isFavorite,video.getTitle());
+            System.out.println(videoInfo);
         }else {
             videoInfo = new VideoInfo(videoId,new UserInfo(author.getUserid(),author.getUsername(),follow,follower,false),
                     video.getPlayurl(),video.getCoverurl(),
@@ -86,6 +87,8 @@ public class CommentServiceImpl implements CommentService {
         ArrayList<Integer> commentIdList = commentMapper.getCommentList(videoId);
         for (Integer commentId : commentIdList) {
             Comment comment = commentMapper.getCommentById(commentId);
+            int i = followMapper.selectFollowStatus(userId, comment.getAuthorid());
+            isFollow = (i==1);
             User user = userMapper.findUserById(comment.getAuthorid());
             UserInfo userInfo;
             if (user == null) {
