@@ -47,7 +47,9 @@
             <th th:text="${commentlist.videoInfo.user.username}">用户名</th>
             <th th:text="${commentlist.videoInfo.user.follow_count}">用户关注数</th>
             <th th:text="${commentlist.videoInfo.user.follower_count}">用户粉丝数</th>
-            <th th:if="${commentlist.videoInfo.user.id} != ${user_id} and ${hasUserId}" th:text="${commentlist.videoInfo.user.is_follow}">关注状态</th>
+            <th th:classappend="${commentlist.videoInfo.user.is_follow} == true ? 'btn btn-success' : 'btn btn-danger' "
+                th:onclick="|postFollow(${commentlist.videoInfo.user.id},${commentlist.videoInfo.user.is_follow})|"
+                th:if="${commentlist.videoInfo.user.id} != ${user_id} and ${hasUserId}" th:text="${commentlist.videoInfo.user.is_follow}">关注状态</th>
             <th th:if="${commentlist.videoInfo.user.id} == ${user_id} and ${hasUserId}">无法关注自己</th>
             <th th:unless="${hasUserId}">未登录</th>
             <th>
@@ -62,7 +64,9 @@
             <th th:text="${commentlist.videoInfo.favorite_count}">视频点赞数量</th>
             <th th:text="${commentlist.videoInfo.comment_count}">视频评论总数</th>
 
-            <th th:if="${hasUserId}" th:text="${commentlist.videoInfo.is_favorite}">点赞状态</th>
+            <th th:classappend="${commentlist.videoInfo.is_favorite} == true ? 'btn btn-success' : 'btn btn-danger' "
+                th:onclick="|postFavorite(${commentlist.videoInfo.id},${commentlist.videoInfo.is_favorite})|"
+                th:if="${hasUserId}" th:text="${commentlist.videoInfo.is_favorite}">点赞状态</th>
             <th th:unless="${hasUserId}">未登录</th>
 
             <th th:text="${commentlist.videoInfo.title}">视频标题</th>
@@ -89,7 +93,9 @@
             <th th:text="${comment.user.follower_count}">用户粉丝数</th>
 
             <th th:unless="${hasUserId}">未登录</th>
-            <th th:if="${comment.user.id} != ${user_id}" th:text="${comment.user.is_follow}">关注状态</th>
+            <th th:classappend="${comment.user.is_follow} == true ? 'btn btn-success' : 'btn btn-danger' "
+                th:onclick="|postFollow(${comment.user.id},${comment.user.is_follow})|"
+                th:if="${comment.user.id} != ${user_id}" th:text="${comment.user.is_follow}">关注状态</th>
             <th th:if="${comment.user.id} == ${user_id} and ${hasUserId}">无法关注自己</th>
 
             <th th:text="${comment.content}">评论内容</th>
@@ -124,7 +130,48 @@
 
 
 </body>
-<script>
-
+<script th:if="${hasUserId}">
+    function postFollow(to_user_id,action_type){
+        var actionType
+        if (action_type){
+            actionType = 2
+        }else {
+            actionType = 1
+        }
+        $.ajax({
+            url: "/douyin/relation/action/",
+            type: 'POST',
+            data: {
+                to_user_id:to_user_id,
+                action_type:actionType,
+            },
+            dataType: 'text',
+            success: function (data){
+                alert(data)
+                location.reload()
+            },
+        })
+    }
+    function postFavorite(video_id,action_type){
+        var actionType
+        if (action_type){
+            actionType = 2
+        }else {
+            actionType = 1
+        }
+        $.ajax({
+            url: "/douyin/favourite/action/",
+            type: 'POST',
+            data: {
+                video_id:video_id,
+                action_type:actionType,
+            },
+            dataType: 'text',
+            success: function (data){
+                alert(data)
+                location.reload()
+            },
+        })
+    }
 </script>
 </html>

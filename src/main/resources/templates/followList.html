@@ -34,14 +34,36 @@
             <th th:text="${follow.username}">用户名</th>
             <th th:text="${follow.follow_count}">用户关注数</th>
             <th th:text="${follow.follower_count}">用户粉丝数</th>
-            <th th:text="${follow.is_follow}">关注状态</th>
+            <th th:classappend="${follow.is_follow} == true ? 'btn btn-success' : 'btn btn-danger' "
+                th:onclick="|postFollow(${follow.id},${follow.is_follow})|"
+                    th:text="${follow.is_follow}">关注状态</th>
         </tr>
     </table>
 </div>
 
 
 </body>
-<script>
-
+<<script>
+    function postFollow(to_user_id,action_type){
+        var actionType
+        if (action_type){
+            actionType = 2
+        }else {
+            actionType = 1
+        }
+        $.ajax({
+            url: "/douyin/relation/action/",
+            type: 'POST',
+            data: {
+                to_user_id:to_user_id,
+                action_type:actionType,
+            },
+            dataType: 'text',
+            success: function (data){
+                alert(data)
+                location.reload()
+            },
+        })
+    }
 </script>
 </html>
