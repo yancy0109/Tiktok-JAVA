@@ -43,7 +43,7 @@ public class FollowController {
                 }
 //            attributes.addAttribute("upload_msg", "关注成功");
 //            return "followList";
-                return "关注失败";
+                return "关注成功";
             }else {
                 if (!followService.updateFollow(beFollower,follower,new Date(),status)) {
                     //                attributes.addAttribute("upload_msg", "关注失败");
@@ -52,7 +52,7 @@ public class FollowController {
                 }
 //            attributes.addAttribute("upload_msg", "关注成功");
 //            return "followList";
-                return "关注失败";
+                return "关注成功";
             }
         } else if (status==2){
             if (!followService.updateFollow(beFollower,follower,new Date(),status)) {

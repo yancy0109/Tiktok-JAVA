@@ -31,7 +31,7 @@ public interface VideoFavoriteMapper {
     @Update("update video_favorite set status= #{action_type} where video_id= #{videoId} and user_id = #{userId}")
     Integer favouriteUpdateAdd(Integer videoId,Integer userId,Integer action_type);
 
-    @Select("select id from video_favorite where video_id=#{videoId} and user_id=#{userId}")
-    Integer inquery(Integer videoId,Integer userId);
+    @Select("select count(*) from video_favorite where video_id=#{videoId} and user_id=#{userId}")
+    int inquery(Integer videoId,Integer userId);
 
 }
